@@ -1,94 +1,137 @@
-# Teste fullstack
+# Teste para Estágio de Desenvolvimento Web
 
-Leia primeiro todo o projeto, faça sua estimativa de horas para o desenvolvimento e envie um email com o título `[Teste Fullstack] Estimativa` para lagden@textecnologia.com.br
+# Como você será avaliado
 
-Quando finalizar o teste, publique tudo no seu [Github](https://github.com) e envie um email com o título `[Teste Fullstack] Finalizado` para rh@textecnologia.com.br
+O intuito deste teste é analisar a capacidade de responder ao desafio abaixo com uma solução criativa. Entendemos que no início da carreira, muitas vezes, não temos experiência ou conhecimentos sobre tecnologias específicas. Por isso nesse teste você terá a chance de mostrar a capacidade de **pesquisar e propor** uma solução simples e funcional.
 
-## Missão backend
+Quando finalizar o teste, publique tudo no seu [Github](https://github.com/) e envie um e-mail com o título `[Teste Estágio] Finalizado` para [alexandre.ubaldo@eduxe.com.br](mailto:alexandre.ubaldo@eduxe.com.br).
 
-Desenvolver uma **API JSON RESTful** em **Python** ou **Go** ou **Node** ou **PHP**, que utilize todos os métodos (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).  
-Faça o teste unitário da **API** (Bônus :star:)
-### Especificação
+> **ATENÇÃO**: Os bônus não são obrigatórios, priorize os requisitos básicos. Entretanto os mesmos podem lhe diferenciar dos demais candidatos.
 
-Monte uma base de veículo com a seguinte estrutura:
 
-```
-veiculo:   string
-marca:     string
-ano:       integer
-descricao: text
-vendido:   bool
-created:   datetime
-updated:   datetime
-```
+A data final para a conclusão do desafio é **05/11/2019**
 
-Utilize **MongoDB** ou **MySQL** para armazenar os dados que a **API** irá consumir.
+### O que nós gostaríamos :thumbsup:
+- Código organizado
+- Instruções de uso e configuração de seus projetos
+- Commits explicando o processo de construção do projeto
+
+### O que nós não gostaríamos :thumbsdown:
+- Descobrir que não foi você quem fez seu teste.
+- Ver commits gigantes, sem mensagens ou com `-m` sem pé nem cabeça.
+
+
+# Missão backend
+
+Desenvolver uma **API JSON** em **Python** ou **Node** ou **PHP**, que utilize todos os seguintes métodos (`GET`, `POST`).  
+
+### Bônus
+* Utilize Laravel :star: :star:
+* Escreva testes para **API**  :star:
+* Automatize o processo de criação do banco e tabelas  :star:
+
+## Cadastro de candidatos a bolsa atleta
+
+Nesse processo ficticio, será criado um cadastro de dados básicos de candidatos a uma bolsa ficticia.
+
+Monte uma base de candidatos com a seguinte estrutura:
+
+|Propriedade|Tipo|Descrição|
+|---|---|---|
+|name|string|Nome do candidato|
+|date_of_birth|date|Data de nascimento do candidato|
+|zip_code|string|Código de Endereçamento Postal do candidato|
+|city|string|Cidade do Candidato|
+|state|string|Estado do Candidato|
+
+Utilize **PostgreSQL** ou **MySQL** para armazenar os dados que a **API** irá consumir.
 
 ### API endpoints
 
-`GET /veiculos`
+`GET /candidates`
 
-Retorna todos os veículos
+Retorna todos do método:
 
----
-
-`GET /veiculos/find`
-
-Retorna os veículos de acordo com o termo passado parâmetro `q`
-
----
-
-`GET /veiculos/{id}`
-
-Retorna os detalhes do veículo
-
----
-
-`POST /veiculos`
-
-Adiciona um novo veículo
-
----
-
-`PUT /veiculos/{id}`
-
-Atualiza os dados de um veículo
+ ```json
+[
+    {
+        "id": 1,
+        "name": "José Augusto",
+        "date_of_birth": "2002-10-05",
+        "zip_code": "30350120",
+        "city": "Belo Horizonte",
+        "state": "MG"
+    },
+    {
+        "id": 2,
+        "name": "Maria das Graças",
+        "date_of_birth": "2003-07-15",
+        "zip_code": "30122120",
+        "city": "Campinas",
+        "state": "SP"
+    },
+    ...
+]
+```
 
 ---
 
-`PATCH /veiculos/{id}`
+`POST /candidates`
 
-Atualiza apenas alguns dados do veículo
+Adiciona um novo candidato. Apenas candidatos que se encaixem nos critérios abaixo serão aceitos. Caso os dados enviados não sejam válidos o endpoint deverá retornar erro com code status **422**.
+1. Residir no estado de Minas Gerais ou São Paulo.
+2. Ter entre 15 e 18 anos de idade.
+
+Corpo da Requisição:
+```json
+{
+    "name": "José Augusto",
+    "date_of_birth": "1995-10-05",
+    "zip_code": "30350120"
+}
+```
 
 ---
 
-`DELETE /veiculos/{id}`
+**Recursos adicionais para uso**
 
-Apaga o veículo
+Para validar o estado do candidato você verá descobri-lo através do CEP. Recomendamos o uso da API gratuita VIACEP.
 
+[https://viacep.com.br/](https://viacep.com.br/)
 
-## Missão frontend
+# Missão frontend
 
-Desenvolver uma **UI (User Interface)** de acordo com o desenho que está na pasta [layout](https://github.com/TExTecnologia/teste-fullstack/tree/master/layout)
+Desenvolver um projeto para a interface de usuário em **javascript** utilizando **Vue.js** ou **React** para viabilizar a listagem e inclusão de candidatos.  
 
-### Especificação
+### Bônus
+* Crie um projeto novo que possa ser executado via `yarn serve` :star: :star:
+* Não utilize frameworks (exemplo: vuetify, material ui) :star:
 
-- Cross browser support (IE11+)
-- Consumir **API** criada acima
-- Criar uma tela que tenha...
-    - Listagem de veículos
-    - Detalhe do veículo
-    - Busca
-    - Formulário de novo/edição de veículos
+## Listagem de candidatos
 
-### Dica
+Utilize o endpoint criado na missão backend (`GET /candidates`) para receber e em seguida listar todos os candidatos cadastrados. Abaixo você tem uma sugestão de layout para a tela.
 
-Utilize algum framework para auxiliar no desenvolvimento da interface, por exemplo:
+![Tela de Listagem](https://s3-us-west-2.amazonaws.com/tenant.w2b3n.com.br/exemplos/listagem-candidatos.png "Tela de Listagem")
 
-- https://getmdl.io/
-- http://getbootstrap.com/css/
-- http://foundation.zurb.com/
+### Bônus
+* Seguir o layout (estrutura) sugerido. :star: :star:
+* Uma cor de ícone de listagem diferente para cada usuário :star:
 
-## Dúvida
+## Adicionar candidatos
 
-Se tiver qualquer dúvida sobre esse teste, envie um email com o título `[Teste Fullstack] O assunto que vc deseja` para lagden@textecnologia.com.br
+Utilize o endpoint criado na missão backend (`POST /candidates`) para enviar um candidato para cadastro. **Caso o endpoint retorne code status 422 a interface deverá exibir uma mensagem de erro informando que o cadastro não poderá ser realizado.**
+
+Abaixo você tem uma sugestão de layout para a tela.
+
+![Tela de Cadastro](https://s3-us-west-2.amazonaws.com/tenant.w2b3n.com.br/exemplos/cadastro-candidatos.png "Tela de Cadastro")
+
+![Tela de Cadastro com erros](https://s3-us-west-2.amazonaws.com/tenant.w2b3n.com.br/exemplos/cadastro-erro.png "Tela de Cadastro com erros")
+
+### Bônus
+* Seguir o layout (estrutura) sugerido. :star: :star:
+* Utilizar máscaras nos campos :star:
+* Validar o cadastro também no frontend :star:
+
+## Dúvidas
+
+Em caso de dúvidas envie um e-mail com o título `[Teste Estágio] Dúvidas` para [alexandre.ubaldo@eduxe.com.br](mailto:alexandre.ubaldo@eduxe.com.br).
